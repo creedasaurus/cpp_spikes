@@ -15,9 +15,8 @@ void display(Rat& rat) {
 	cout << rat.age  << endl;
 }
 
-// void writeTextData(ofstream& textFile, Rat& rat) {
-//  	//TODO write out to textFile the same text and format as display()
-// }
+void writeTextData(ofstream& textFile, Rat& rat) {
+}
 
 // void readTextData(ifstream& textFile, Rat& rat) {
 // 	//TODO read in from textFile the same text and format as display()
@@ -28,9 +27,10 @@ void display(Rat& rat) {
 // 	//TODO read an entire rat from an input stream
 // }
 
-// ostream& operator<<(ostream& out, Rat& rat) {
-// 	//TODO write an entire rat to an output stream
-// };
+ostream& operator<<(ostream& out, Rat& rat) {
+	//TODO write an entire rat to an output stream
+	return out << rat.name << '\n' << rat.age << '\n';
+};
 
 //----- BINARY I/O -----//
 // void writeBinaryData(ofstream& binaryFile, Rat& rat) {
@@ -48,14 +48,18 @@ int main() {
 	strcpy(r1.name, "Ben");
 	r1.age = 2;
 
-	cout << r1.name << endl;
-	cout << r1.age << endl;
 	//TODO r2's name is Willard and age is 3
 	strcpy(r2.name, "Willard");
 	r2.age = 3;
 	
+	cout << r1;
+	
 	//TODO display r1 & r2
 	//TODO open ofstream rf "ratfarm.txt"
+	ifstream rf("ratfarm.txt", ios::in);
+	if (rf.is_open()) {
+	    cout << "it opened!" << endl;
+	}
 	//TODO writeTextData r1 & r2
 	//TODO readTextData into r3 & r4
 	//TODO display r3 & r4
