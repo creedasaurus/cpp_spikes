@@ -1,3 +1,7 @@
+# Testing files (text and binary)
+*.bin
+*.txt
+
 # Compiled Object files
 *.slo
 *.lo
