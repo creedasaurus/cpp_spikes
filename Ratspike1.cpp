@@ -45,10 +45,15 @@ void display(Rat& rat) {
 int main() {
 	Rat r1, r2, r3, r4;
 	//TODO r1's name is Ben and age is 2
-	char name1[] = "what";
-	r1.name = name1;
+	strcpy(r1.name, "Ben");
+	r1.age = 2;
 
+	cout << r1.name << endl;
+	cout << r1.age << endl;
 	//TODO r2's name is Willard and age is 3
+	strcpy(r2.name, "Willard");
+	r2.age = 3;
+	
 	//TODO display r1 & r2
 	//TODO open ofstream rf "ratfarm.txt"
 	//TODO writeTextData r1 & r2
