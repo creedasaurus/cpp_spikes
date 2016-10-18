@@ -81,7 +81,10 @@ int main() {
     
     cout << " \n----- ratfarm2 -----\n";
 	//TODO open ofstream rf2 "ratfarm2.txt"
-	fstream rf2("ratfarm2.txt");
+	fstream rf2("ratfarm2.txt", fstream::in | fstream::out | fstream::trunc);
+	if (rf2.is_open()) {
+		cout << "yeehaw" << endl;
+	}
 	
 	rf2 << r1;
 	rf2 << r2;
@@ -97,7 +100,7 @@ int main() {
 	cout << r3;
 	cout << r4;
 	cout << r1;
-	
+	rf2.close();
 	
 	//TODO read and write binary data in similar vein to above
 	return 0;
