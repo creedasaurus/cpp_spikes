@@ -72,23 +72,33 @@ int main() {
 	ifstream inf("ratfarm.txt");
 	readTextData(inf, r3);
 	readTextData(inf, r4);
-	
+	inf.close();
 	
 	//TODO display r3 & r4
     display(r3);	
     display(r4);
     
     
+    cout << " \n----- ratfarm2 -----\n";
 	//TODO open ofstream rf2 "ratfarm2.txt"
+	fstream rf2("ratfarm2.txt");
+	
+	rf2 << r1;
+	rf2 << r2;
+// 	rf2.close();
 	
 	
-// 	rf2 << r1;
-// 	rf2 << r2;
-// 	rf2 >> r3;
-// 	rf2 >> r4;
-// 	cout << r3;
-// 	cout << r4;
-// 	cout << r1;
+    // ifstream rf2in("ratfarm2.txt");
+	rf2 >> r3;
+	rf2 >> r4;
+// 	rf2in.close();
+	
+	
+	cout << r3;
+	cout << r4;
+	cout << r1;
+	
+	
 	//TODO read and write binary data in similar vein to above
 	return 0;
 }
