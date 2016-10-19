@@ -116,8 +116,7 @@ int main() {
 	rfBin.close();
 
 	ifstream rfBinIN("ratfarm.bin", ios::in | ios::binary);
-	readBinaryData(rfBinIN, rb3);
-	readBinaryData(rfBinIN, rb4);
+	
 
 	display(rb3);
 	display(rb4);

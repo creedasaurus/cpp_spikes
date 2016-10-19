@@ -126,7 +126,7 @@ int main() {
 	
 	
 
-	cout << "\n --- Binary Time! --- \n";
+	cout << "\n --- Binary Time! --- \n";	
 	//TODO read and write binary data in similar vein to above
 	Chinchilla rb1("", 0);
 	Chinchilla rb2("", 0);
