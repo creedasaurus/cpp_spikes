@@ -13,60 +13,36 @@ private:
 	int m_age;
 public:
 	
-	// // parametarized constructor
-	// Chinchilla(string, int);
-		
-	// // get/set name
-	// void set_name(string);
-	// string get_name();
-	
-	// // get/set age
-	// void set_age(int);
-	// int get_age();
-
-	
 	// parameter
 	Chinchilla(string n, int a) {
 		m_name = n;
 		m_age = a;
 	}
 	
+	void display() {
+		cout << this->m_name << endl;
+		cout << this->m_age << endl;
+	}
 	
 	// Get/Set NAME
-	void set_name(string n) {
-		m_name = n;
-	}
-	string get_name() {
-		return m_name;
-	}
-	
+	void set_name(string n) { m_name = n; }
+	string get_name() { return m_name; }
 	
 	// Get/set AGE
-	void set_age(int a) {
-		m_age = a;
+	void set_age(int a) { m_age = a;}
+	int get_age() { return m_age; }
+
+
+	void writeTextData(ofstream& textFile) {
+	    textFile << this->m_name << '\n' << this->m_age << '\n';
 	}
-	int get_age() {
-		return m_age;
+
+	void readTextData(ifstream& textFile) {
+		//TODO read in from textFile the same text and format as display()
+	    textFile >> this->m_name >> this->m_age;
 	}
 };
 
-
-
-	
-// //----- TEXT I/O -----//
-// void display() {
-// 	cout << this->name << endl;
-// 	cout << this.age  << endl;
-//}
-
-// void writeTextData(ofstream& textFile, Chinchilla& chin) {
-//     textFile << chin.name << '\n' << chin.age << '\n';
-// }
-
-// void readTextData(ifstream& textFile, Chinchilla& chin) {
-// 	//TODO read in from textFile the same text and format as display()
-//     textFile >> chin.name >> chin.age;
-// }
 
 istream& operator>>(istream& in, Chinchilla& chin) {
 	//TODO read an entire chin from an input stream
@@ -85,75 +61,100 @@ ostream& operator<<(ostream& out, Chinchilla& chin) {
 	//TODO write an entire chin to an output stream
 	return out << chin.get_name() << '\n' << chin.get_age() << '\n';
 };
-
-//----- BINARY I/O -----//
-// void writeBinaryData(ofstream& binaryFile, Chinchilla& chin) {
-// 	//TODO write out to binaryFile the same info in binary format
-// }
-
-// void readBinaryData(ifstream& binaryFile, Chinchilla& chin) {
-// 	//TODO read in from binaryFile the same info in binary format
-// 	//TODO write to chin
-// }
 	
+//----- BINARY I/O -----//
+void writeBinaryData(ofstream& binaryFile, Chinchilla& chin) {
+	//TODO write out to binaryFile the same info in binary format
+	// binaryFile << rat.name << '\n' << rat.age << '\n';
+	binaryFile.write(reinterpret_cast<char*>(&chin), sizeof(chin));
+}
+
+void readBinaryData(ifstream& binaryFile, Chinchilla& chin) {
+	//TODO read in from binaryFile the same info in binary format
+	binaryFile.read(reinterpret_cast<char*>(&chin), sizeof(chin));
+	//TODO write to rat
+}
 
 
+
+// ------ MAIN -------
 int main() {
-	// Chinchilla r1, r2, r3, r4;
+	cout << " -- Chinchilla Spike! -- \n";
 	
 	Chinchilla ch1("Ben", 2);
 	Chinchilla ch2("Willard", 3);
 	
-	cout << ch1 << ch2;
+	cout << "\nOUT: " << endl;
 	
-	
-	// //TODO display r1 & r2
-	// display(r1);
-	// display(r2);
-	
-	// //TODO open ofstream rf "chinfarm.txt"
+	ch1.display();
+	ch2.display();
+
 	ofstream chf("chinfarm.txt");
 	
-	chf << ch1 << ch2;
+	ch1.writeTextData(chf);
+	ch2.writeTextData(chf);
+
 	chf.close();
-	// //TODO writeTextData r1 & r2
- //   writeTextData(rf, r1);
- //   writeTextData(rf, r2);
- //   rf.close();
-	
-	
-	// //TODO readTextData into r3 & r4
-	// ifstream inf("chinfarm.txt");
-	// readTextData(inf, r3);
-	// readTextData(inf, r4);
-	// inf.close();
-	
-	// //TODO display r3 & r4
- //   display(r3);	
- //   display(r4);
+
+
+	cout << "\nIN: " << endl;
+	ifstream inChinf("chinfarm.txt");
+	Chinchilla ch3("", 0);
+	Chinchilla ch4("", 0);
+
+	ch3.readTextData(inChinf);
+	ch4.readTextData(inChinf);
+
+	ch3.display();
+	ch4.display();
+	inChinf.close();
+
     
-    
- //   cout << " \n----- chinfarm2 -----\n";
-	// //TODO open ofstream rf2 "chinfarm2.txt"
-	// fstream rf2("chinfarm2.txt");
+   cout << " \n----- chinfarm2 -----\n";
+	fstream chf2("chinfarm2.txt", fstream::in | fstream::out | fstream::trunc);
 	
-	// rf2 << r1;
-	// rf2 << r2;
-	// rf2.close();
+	chf2 << ch1;
+	chf2 << ch2;
+	chf2.seekg(0);
 	
+	chf2 >> ch3;
+	chf2 >> ch4;
+	chf2.close();
 	
- //   ifstream rf2in("chinfarm2.txt");
-	// rf2in >> r3;
-	// rf2in >> r4;
-	// rf2in.close();
-	
-	
-	// cout << r3;
-	// cout << r4;
-	// cout << r1;
+	cout << ch3;
+	cout << ch4;
 	
 	
+
+	cout << "\n --- Binary Time! --- \n";
 	//TODO read and write binary data in similar vein to above
+	Chinchilla rb1("", 0);
+	Chinchilla rb2("", 0);
+	Chinchilla rb3("", 0);
+	Chinchilla rb4("", 0);
+	rb1.set_name("Lando");
+	rb2.set_name("Buzz");
+	rb1.set_age(44);
+	rb2.set_age(9);
+
+	rb1.display();
+	rb2.display();
+
+	ofstream rfBin("chinfarm.bin", ios::out | ios::binary);
+
+	//TODO read and write binary data in similar vein to above
+	writeBinaryData(rfBin, rb1);
+	writeBinaryData(rfBin, rb2);
+	rfBin.close();
+
+	ifstream rfBinIN("chinfarm.bin", ios::in | ios::binary);
+	readBinaryData(rfBinIN, rb3);
+	readBinaryData(rfBinIN, rb4);
+
+	rb3.display();
+	rb4.display();
+
+
 	return 0;
 }
 
